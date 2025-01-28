@@ -1,38 +1,48 @@
 let result = document.querySelector('.result');
 let btn = document.querySelectorAll('.btn button');
 
-let rlt = 0;
+let count = 0;
 
 let clickedButton;
 
-function counter() {
+function incrementCount() {
     if(clickedButton === 'increase'){
-        rlt += 1;
+        count += 1;
     }
+} 
+function decrementCount() {
     if(clickedButton === 'decrease'){
-        rlt -= 1;
+        count -= 1;
     }
-    if(clickedButton === 'reset'){
-        rlt = 0;
-    }
-result.innerHTML = `${rlt}`;
 }
-function changeOfcolor() {
-    if(rlt < 0) {
-        result.style.color = 'red';
+function resetCount() {
+    if(clickedButton === 'reset'){
+        count = 0;
     }
-    if(rlt > 0) {
-        result.style.color = 'green';
-    }
-    if(rlt === 0) {
-        result.style.color = 'rgb(0, 102, 107)';
-    }
+}
+function getCount() {
+    return count;
 }
 
 btn.forEach((element) => {
     element.addEventListener('click', (event) => {
         clickedButton = event.target.id;
-        counter();
-        changeOfcolor();
+        
+        incrementCount();
+        decrementCount();
+        resetCount();
+        getCount();
+
+        result.innerHTML = getCount();
+        
+        if(count < 0) {
+            result.style.color = 'red';
+        }
+        if(count > 0) {
+            result.style.color = 'green';
+        }
+        if(count === 0) {
+            result.style.color = 'rgb(0, 102, 107)';
+        }
     })        
 })
